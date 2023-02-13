@@ -1,0 +1,9 @@
+<!-- include all css in styles folder  -->
+{%- for file in site.pages -%}
+  {%- if file.url contains "/_styles" -%}
+    {%- unless file.url contains ".map" -%}
+      {% assign path = file.path | replace: ".scss", ".css" %}
+      <link href="{{ path | relative_url }}" rel="stylesheet" />
+    {%- endunless -%}
+  {%- endif -%}
+{%- endfor -%}

@@ -1,0 +1,51 @@
+name: check-version
+run-name: check that template version and release date updated
+
+# on:
+#   pull_request:
+
+jobs:
+  check-version:
+    # only run on template itself, not user instance of template
+    if: github.repository == 'vincerubinetti/lab-website-template'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print contexts
+        uses: crazy-max/ghaction-dump-context@v1
+
+      - name: Checkout latest main branch contents
+        uses: actions/checkout@v3
+        with:
+          ref: main
+
+      - name: Get current citation
+        id: current
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { readFileSync } = require("fs");
+            return readFileSync("CITATION.cff").toString();
+
+      - name: Checkout pr branch contents
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+
+      - name: Install packages
+        run: yarn add yaml semver
+
+      - name: Check version and date
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { readFileSync } = require("fs");
+            const { parse } = require("yaml");
+            const { gt } = require("semver");
+            const current = parse(${{ steps.current.outputs.result }});
+            const changed = parse(readFileSync("CITATION.cff").toString());
+            if (!gt(changed.version, current.version))
+              throw new Error("Version not updated");
+            if (new Date(changed["date-released"]) <= new Date(current["date-released"]))
+              throw new Error("Date not updated");

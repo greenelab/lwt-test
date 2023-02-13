@@ -1,0 +1,18 @@
+---
+---
+
+@import "theme";
+@import "mixins";
+
+.post_excerpt {
+  margin: 20px 0;
+  @include trim-v-margins;
+
+  & > *:first-child {
+    font-weight: $medium;
+  }
+
+  & > div {
+    justify-content: flex-start;
+  }
+}

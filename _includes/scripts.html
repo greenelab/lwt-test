@@ -1,0 +1,14 @@
+<!-- third party scripts -->
+<script src="https://unpkg.com/@popperjs/core@2" defer></script>
+<script src="https://unpkg.com/tippy.js@6" defer></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js"
+  defer
+></script>
+
+<!-- include all js in scripts folder -->
+{% for file in site.static_files %}
+  {%- if file.path contains "/_scripts" -%}
+    <script src="{{ file.path | relative_url }}" defer></script>
+  {% endif -%}
+{% endfor %}
