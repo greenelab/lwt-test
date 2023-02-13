@@ -77,6 +77,16 @@
   orcid: 0000-0002-4655-3773
   plugin: orcid.py
   file: orcid.yaml
+- id: doi:10.1101/2023.01.05.522943
+  title: The Field-Dependent Nature of PageRank Values in Citation Networks
+  authors:
+  - Benjamin J. Heil
+  - Casey S. Greene
+  publisher: Cold Spring Harbor Laboratory
+  date: '2023-01-06'
+  link: https://doi.org/grk9gf
+  plugin: sources.py
+  file: sources.yaml
 - id: doi:10.1016/j.csbj.2020.05.017
   title: Constructing knowledge graphs and their biomedical applications
   authors:
